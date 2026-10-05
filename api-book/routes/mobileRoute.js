@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const route = express.Router();
-const BookController = require('../controllers/bookController');
-const mobileController = require('../controllers/mobileController')
+const BookController = require('../controllers/BookController');
+const mobileController = require('../controllers/MobileController')
 route.use(bodyParser.json());
 route.use(bodyParser.urlencoded({
     extended: false

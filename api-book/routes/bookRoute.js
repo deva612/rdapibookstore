@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer')
 const route = express.Router();
-const BookController = require('../controllers/bookController');
+const BookController = require('../controllers/BookController');
 route.use(bodyParser.json());
 route.use(bodyParser.urlencoded({
     extended: false
