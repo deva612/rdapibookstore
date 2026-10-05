@@ -9,7 +9,8 @@ function UsersList() {
             url: apiUrl + '/users',
             method: 'get'
         }).then((res)=>{
-            setUsers(res.data.data)
+                const responseUsers = Array.isArray(res.data) ? res.data : res.data?.data;
+                setUsers(Array.isArray(responseUsers) ? responseUsers : []);
         }).catch((err)=>{
             alert(err)
         })  
@@ -31,7 +32,7 @@ return (
                      </thead>
                    <tbody>
                     {
-                        users.map((user)=>
+                        (Array.isArray(users) ? users : []).map((user)=>
                         <tr>
                             <td>{user.firstName}</td>
                             <td>{user.lastName}</td>

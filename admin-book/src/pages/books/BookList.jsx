@@ -53,8 +53,9 @@ function BookList() {
                 booksPerPage: booksPerPage
             }
         }).then((res) => {
-            setBooks(res.data.data);
-            setNop(Math.ceil(res.data.totalBooks / booksPerPage))
+            const responseBooks = Array.isArray(res.data) ? res.data : res.data?.data;
+            setBooks(Array.isArray(responseBooks) ? responseBooks : []);
+            setNop(Math.ceil((res.data?.totalBooks ?? 0) / booksPerPage))
         })
             .catch((err) => {
                 alert(err);
@@ -86,7 +87,7 @@ function BookList() {
                         </thead>
                         <tbody>
                             {
-                                books.map((book) =>
+                                (Array.isArray(books) ? books : []).map((book) =>
                                     <tr key={book._id}>
                                         <td><img src={book.bookImage} width='30px' height='30px' alt={book.bookTittle || book.bookTitle}></img></td>
                                         <td>{book.bookTittle || book.bookTitle}</td>

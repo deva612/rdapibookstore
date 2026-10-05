@@ -7,18 +7,31 @@ import axios from "axios"
 function DiscountList(){
     let [discounts,setDiscounts] = useState([])
     const navigate = useNavigate()
-         function goToAddDiscount(){
-            navigate('/add/discount')
-         }
-      function goForEdit(id){
+
+    const getBookName = (discount) => {
+        if (!discount) return 'N/A'
+
+        const book = discount.book
+        if (!book) return 'N/A'
+
+        return book.bookTittle || book.bookTitle || book.name || 'N/A'
+    }
+
+    function goToAddDiscount(){
+        navigate('/add/Discount')
+    }
+
+    function goForEdit(id){
         navigate('/edit/discount/' + id)
-      }   
+    }
+
 useEffect(()=>{
     axios({
         url: apiUrl + '/discount',
         method: 'get'
     }).then((res)=>{
-        setDiscounts(res.data.data)
+        const responseDiscounts = Array.isArray(res.data) ? res.data : res.data?.data;
+        setDiscounts(Array.isArray(responseDiscounts) ? responseDiscounts : []);
     }).catch((err)=>{
         alert(err)
     })
@@ -34,7 +47,7 @@ useEffect(()=>{
                             </Form.Control>
                         </FormGroup>
                     </Form>
-                    <Button className="mt-5" variant="success" style={{ float: 'right' }} onClick={() => navigate('/add/Discount')}>
+                    <Button className="mt-5" variant="success" style={{ float: 'right' }} onClick={goToAddDiscount}>
                         Add Discount
                     </Button>
                     </Col>
@@ -56,22 +69,20 @@ useEffect(()=>{
                         </thead>
                         <tbody>
                             {
-                                discounts.map((discount)=>
-                                    <tr>
+                                (Array.isArray(discounts) ? discounts : []).map((discount)=>(
+                                    <tr key={discount._id}>
                                        <td> {discount.discountName}</td>
                                        <td> {discount.discountType}</td>
                                        <td> {discount.discountValue}</td>
-                                       <td> {discount.book?.bookTittle}</td>
-                                       <td>{new Date(discount.validFrom).toLocaleDateString()}</td>
-                                       <td>{new Date(discount.validTo).toLocaleDateString()}</td>
-                                       {/* <td>{discount.status}</td> */}
+                                       <td> {getBookName(discount)}</td>
+                                       <td>{discount.validFrom ? new Date(discount.validFrom).toLocaleDateString() : 'N/A'}</td>
+                                       <td>{discount.validTo ? new Date(discount.validTo).toLocaleDateString() : 'N/A'}</td>
                                        <td className={discount.status === "Active" ? "text-success" : "text-danger"}>{discount.status}</td>
                                     <td>
                                         <Button variant="danger" size="sm" onClick={()=> goForEdit(discount._id)}><i className="bi bi-pencil"></i></Button>
                                     </td>
                                     </tr>
-                                    
-                                )
+                                ))
                             }
                         </tbody>
 
