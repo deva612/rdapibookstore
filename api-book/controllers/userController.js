@@ -20,6 +20,17 @@ async function doAdminLogin(req,res){
         res.status(400).send({ message: err })
     }
 }
+async function getUsers(req,res){
+    try{
+        let users = await User.find({})
+        console.log(users)
+        res.status(200).send({ data: users})
+    }catch(err){
+        console.log(err)
+        res.status(400).send({ message: 'Something went wrong'})
+    }
+}
 module.exports = {
-    doAdminLogin
+    doAdminLogin,
+    getUsers
 }

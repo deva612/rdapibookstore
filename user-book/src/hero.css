@@ -1,0 +1,121 @@
+.hero-section {
+    min-height: 430px;
+    padding: 70px 0;
+    background: linear-gradient(
+        135deg,
+        #071b33,
+        #123456
+    );
+    color: white;
+}
+
+.hero-small-text {
+    font-size: 17px;
+    margin-bottom: 15px;
+}
+
+.hero-section h1 {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.hero-section h1 span {
+    color: #ffc107;
+}
+
+.hero-description {
+    font-size: 18px;
+    max-width: 500px;
+    line-height: 1.7;
+    color: #dddddd;
+}
+
+.shop-btn {
+    margin-top: 15px;
+    padding: 12px 28px;
+    font-weight: 600;
+    border-radius: 25px;
+}
+
+
+/* Book Stack */
+
+.book-stack {
+    position: relative;
+    width: 330px;
+    height: 300px;
+    margin: auto;
+}
+
+.book {
+    position: absolute;
+
+    width: 220px;
+    height: 55px;
+
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+
+/* Individual Books */
+
+.book-one {
+    background: #d97706;
+    top: 50px;
+    left: 40px;
+    transform: rotate(-5deg);
+}
+
+.book-two {
+    background: #9f1239;
+    top: 105px;
+    left: 60px;
+    transform: rotate(3deg);
+}
+
+.book-three {
+    background: #3730a3;
+    top: 160px;
+    left: 35px;
+    transform: rotate(-3deg);
+}
+
+.book-four {
+    background: #166534;
+    top: 215px;
+    left: 65px;
+    transform: rotate(4deg);
+}
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+    .hero-section {
+        text-align: center;
+        padding: 50px 20px;
+    }
+
+    .hero-section h1 {
+        font-size: 36px;
+    }
+
+    .hero-description {
+        margin: auto;
+    }
+
+    .book-stack {
+        margin-top: 50px;
+        transform: scale(0.85);
+    }
+}

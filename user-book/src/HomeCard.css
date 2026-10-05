@@ -1,0 +1,153 @@
+.books-section {
+    padding: 70px 0;
+    background: #f7f8fa;
+}
+
+
+/* Heading */
+
+.books-heading {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.books-heading p {
+    color: #f0a500;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.books-heading h2 {
+    color: #14213d;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.books-heading span {
+    color: #666;
+}
+
+
+/* Card */
+
+.book-card {
+    height: 100%;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+
+    background: white;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.10);
+
+    transition: 0.3s ease;
+}
+
+
+/* Card Hover */
+
+.book-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+
+/* Image */
+
+.book-image-wrapper {
+    height: 260px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #eeeeee;
+
+    overflow: hidden;
+}
+
+.book-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    transition: 0.4s ease;
+}
+
+
+/* Image Zoom */
+
+.book-card:hover .book-image {
+    transform: scale(1.06);
+}
+
+
+/* Title */
+
+.book-title {
+    color: #14213d;
+    font-size: 18px;
+    font-weight: 700;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* Author */
+
+.book-author {
+    color: #555;
+    margin-bottom: 5px;
+}
+
+
+/* Publication */
+
+.book-publication {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+
+/* Price */
+
+.book-price {
+    color: #198754;
+    font-size: 22px;
+    font-weight: 700;
+
+    margin-bottom: 15px;
+}
+
+
+/* Button */
+
+.details-btn {
+    width: 100%;
+    border-radius: 8px;
+
+    padding: 10px;
+
+    font-weight: 600;
+}
+
+
+/* Mobile */
+
+@media (max-width: 576px) {
+
+    .books-section {
+        padding: 45px 15px;
+    }
+
+    .books-heading h2 {
+        font-size: 30px;
+    }
+
+}

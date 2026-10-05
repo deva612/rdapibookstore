@@ -1,43 +1,51 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { Container, Row, Col, Table, Button, Form, Pagination } from 'react-bootstrap'
-import axios from "axios"
-const apiUrl = import.meta.env.VITE_API_URL
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Col, Container, Row, Table, Button, Form, Pagination } from 'react-bootstrap';
+import { FaTrash, FaEdit, FaEye } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+const apiUrl = import.meta.env.VITE_API_URL;
 function BookList() {
-    let [books, setBooks] = useState([])
-    let [isDelete, setIsDelete] = useState(false)
-    let [searchBook, setSearchBook] = useState('')
+    let [books, setBooks] = useState([]);
+    let [isDelete, setIsDelete] = useState(false);
+    let [searchBook, setSearchBook] = useState('');
     let [nop, setNop] = useState(1);
-    let [booksPerPage, setBooksPerPage] = useState(3)
-    let [pageNo, setPageNumber] = useState(1)
-    let navigate = useNavigate()
-    let items = []
+    let [booksPerPage] = useState(3);
+    let [pageNo, setPageNo] = useState(1);
+    let navigate = useNavigate();
+    let items = [];
     for (let i = 1; i <= nop; i++) {
-        items.push(<Pagination.Item key={i} onClick={() => setPageNumber(i)}> {i}</Pagination.Item>)
-
+        items.push(
+            <Pagination.Item key={i} onClick={() => setPageNo(i)}>{i}</Pagination.Item>
+        )
     }
     function goToAddBook() {
+
         navigate('/add/book')
     }
+
     function handleDelete(id) {
+        alert(id);
         axios({
-            //url: 'http://localhost:3000/delete/book/' + id,
             url: apiUrl + '/delete/book/' + id,
             method: 'delete'
-        }).then((res) => {
-            alert('Data has been deleted Successfuly...')
-            setIsDelete(true)
-        }).catch((err) => {
-            alert(err)
+        }).then(() => {
+            alert('data has been deleted successfully')
+            setIsDelete(true);
         })
+            .catch((err) => {
+                alert(err)
+            })
     }
     function handleUpdate(id) {
-        navigate('/edit/book/' + id)
+        alert(id);
+        navigate('/edit/book/' + id);
+    }
+    const handleView = (id)=>{
+        navigate('/view/book/' + id);
     }
     useEffect(() => {
         axios({
-            url: 'http://localhost:3000/books',
-            //url: apiUrl + '/books',
+            url: apiUrl + '/books',
             method: 'get',
             params: {
                 searchBook: searchBook,
@@ -45,32 +53,33 @@ function BookList() {
                 booksPerPage: booksPerPage
             }
         }).then((res) => {
-            setBooks(res.data.data)
-            setNop(Math.ceil(res.data.totalBooks / 3))
-        }).catch((err) => {
-            alert(err)
+            setBooks(res.data.data);
+            setNop(Math.ceil(res.data.totalBooks / booksPerPage))
         })
-    }, [isDelete, searchBook, pageNo])
+            .catch((err) => {
+                alert(err);
+            })
+    }, [isDelete, searchBook, pageNo, booksPerPage])
     return (
         <Container>
             <Row>
                 <Col>
                     <Form>
                         <Form.Group>
-                            <Form.Control type="text" placeholder="Enter book title to search...." onChange={(e) => setSearchBook(e.target.value)}></Form.Control>
+                            <Form.Control type='text' placeholder='enter bookTittle to search....' onChange={(e) => setSearchBook(e.target.value)}></Form.Control>
                         </Form.Group>
                     </Form>
-                    <Button className="mt-5" variant="success" style={{ float: 'right' }} onClick={goToAddBook}>Add Book +</Button>
-                    <h3 className="text-center text-danger mt-5">Book List</h3>
-                    <Table bordered hover>
+                    <Button className='mt-5' variant="success" style={{ float: 'right' }} onClick={goToAddBook} >AddBook +</Button>
+                    <h3 className='text-center text-danger mt-5'>Book List</h3>
+                    <Table bordered>
                         <thead>
                             <tr>
-                                <th>Image</th>
+                                <th>BookImage</th>
                                 <th>Book Title</th>
                                 <th>Author Name</th>
                                 <th>Price</th>
-                                <th>ISBN No</th>
-                                <th>No Of Pages</th>
+                                <th>ISBN NO</th>
+                                {/* <th>NOP</th> */}
                                 <th>Publication</th>
                                 <th>Actions</th>
                             </tr>
@@ -78,30 +87,58 @@ function BookList() {
                         <tbody>
                             {
                                 books.map((book) =>
-                                    <tr>
-                                        <td><img src={book.bookImage} width="30px" height="30px"></img></td>
-                                        <td>{book.bookTitle}</td>
+                                    <tr key={book._id}>
+                                        <td><img src={book.bookImage} width='30px' height='30px' alt={book.bookTittle || book.bookTitle}></img></td>
+                                        <td>{book.bookTittle || book.bookTitle}</td>
                                         <td>{book.authorName}</td>
-                                        <td>{book.price}</td>
+                                        <td>{book.originalPrice ?? book.price}</td>
                                         <td>{book.isbnNo}</td>
-                                        <td>{book.nop}</td>
-                                        <td>{book.publication}</td>
-                                        <td>
-                                            <Button variant="danger" size="sm" onClick={() => handleDelete(book._id)}>Delete</Button>
-                                            <Button variant="warning" size="sm" className="ms-1" onClick={() => handleUpdate(book._id)}>Edit</Button>
+                                        {/* <td>{book.nop}</td> */}
+                                        <td>{book.publicationYear || book.publication}</td>
+                                        <td>                                        
+                                            <div className="d-flex gap-2">
+
+                                                <Button
+                                                    variant="danger"
+                                                    size="sm"
+                                                    onClick={() => handleDelete(book._id)}
+                                                    title="Delete Book"
+                                                >
+                                                    <FaTrash />
+                                                </Button>
+
+
+                                                <Button
+                                                    variant="warning"
+                                                    size="sm"
+                                                    onClick={() => handleUpdate(book._id)}
+                                                    title="Edit Book"
+                                                >
+                                                    <FaEdit />
+                                                </Button>
+
+
+                                                <Button
+                                                    variant="primary"
+                                                    size="sm"
+                                                    onClick={() => handleView(book._id)}
+                                                    title="View Book"
+                                                >
+                                                    <FaEye />
+                                                </Button>
+
+                                            </div>
                                         </td>
                                     </tr>
                                 )
                             }
                         </tbody>
-
                     </Table>
-                    <Pagination size="md" className="justify-content-center">{items}</Pagination>
+                    <Pagination size='md' className='justify-content-center'>{items}</Pagination>
                 </Col>
             </Row>
-
-        </Container >
-
+        </Container>
     )
 }
-export default BookList
+
+export default BookList;

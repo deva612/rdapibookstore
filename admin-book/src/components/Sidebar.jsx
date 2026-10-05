@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { ListGroup, Dropdown, Image, Button } from "react-bootstrap";
+import { ListGroup, Dropdown, Image } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import logo from "../assets/logo.png";
@@ -52,6 +52,36 @@ function Sidebar() {
               <i className='bi bi-book'></i>
               <span className="d-none d-md-inline">Manage Book</span>
             </ListGroup.Item>
+             <ListGroup.Item
+              as={NavLink}
+              to="/discount"
+              className="d-flex align-items-center gap-2">
+              <i className='bi bi-click'></i>
+              <span className="d-none d-md-inline">ManageDiscout</span>
+            </ListGroup.Item>
+            {/* <ListGroup.Item
+              as={NavLink}
+              to=""
+              className="d-flex align-items-center gap-2">
+              <i className='bi bi-click'></i>
+              <span className="d-none d-md-inline">Book Availablity</span>
+            </ListGroup.Item> */}
+                         <ListGroup.Item
+              as={NavLink}
+              to="/users"
+              className="d-flex align-items-center gap-2">
+              <i className='bi bi-click'></i>
+              <span className="d-none d-md-inline">Manage User</span>
+            </ListGroup.Item>
+            {/* <ListGroup.Item
+                as={NavLink}
+                 to="/timeslot"
+                  className="d-flex align-items-center gap-2"
+>
+                      <i className="bi bi-clock"></i>
+                     <span className="d-none d-md-inline">Time Slot</span>
+                         </ListGroup.Item> */}
+
 
 
             {/* <ListGroup.Item
@@ -119,7 +149,7 @@ function Sidebar() {
                 <div>
                   <h6 className="mb-0">{username} <small className="text-muted">Admin</small>   </h6>
 
-                  <Button className="mt-1" variant="danger" size='sm' onClick={doLogout}>Logout</Button>
+                  <small className="text-muted">Use the menu below to sign out</small>
                 </div>
               </div>
               {/* <i className="bi bi-chevron-up"></i> */}
@@ -133,7 +163,7 @@ function Sidebar() {
                 <i className="bi bi-gear me-2"></i> Settings
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item onClick={() => alert("Logged out!")}>
+              <Dropdown.Item onClick={doLogout}>
                 <i className="bi bi-box-arrow-right me-2"></i> Logout
               </Dropdown.Item>
             </Dropdown.Menu>

@@ -39,7 +39,7 @@ function AdminLogin() {
       if (res.data.success) {
         alert("Admin login successful!");
         localStorage.setItem("token", res.data.data.token);
-        localStorage.setItem("name", res.data.data.name);
+        localStorage.setItem("name", res.data.data.firstName);
         window.location.href = "/admin/dashboard"; // redirect
       } else {
         setErrorMsg(res.data.message || "Invalid credentials");
