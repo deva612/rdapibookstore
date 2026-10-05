@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 const connect = require('./connection');
 const book = require('./routes/bookRoute');
-const mobile = require('./routes/mobileRoute');
+
 const user = require('./routes/userRoute')
 const createAdmin = require('./createAdmin')
 const discount = require('./routes/discount')
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(book);
-app.use(mobile);
+
 app.use(user);
 app.use(discount)
 app.use(Home)
